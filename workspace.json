@@ -2,7 +2,9 @@
   "version": 2,
   "projects": {
     "api": "apps/api",
+    "classes": "libs/classes",
     "frontend": "apps/frontend",
-    "frontend-e2e": "apps/frontend-e2e"
+    "frontend-e2e": "apps/frontend-e2e",
+    "interfaces": "libs/interfaces"
   }
 }

@@ -12,7 +12,7 @@ export function Index() {
       <div className="wrapper">
         <div className="container">
           <div id="welcome">
-            <h1>
+            <h1 className="text-green-400">
               <span> Hello there, </span>
               Welcome Doodllr 👋
             </h1>
