@@ -1,1 +1,4 @@
-export class Todo {}
+export class Todo {
+  id = String;
+  title = String;
+}

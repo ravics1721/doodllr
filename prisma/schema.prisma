@@ -1,0 +1,90 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String      @id @unique @default(uuid())
+  name          String      @db.VarChar(255)
+  email         String
+  verifiedEmail Boolean
+  picture       String
+  locale        String?
+  accessToken   String?
+  tokenType     String?
+  expiresIn     Int?
+  refreshToken  String?
+  idToken       String?
+  credentials   Json        @db.Json
+  todos         String[]
+  notes         Note[]
+  workspaces    Workspace[]
+  createdAt     DateTime    @default(now()) @db.Date
+  Workspace     Workspace[] @relation("author")
+  assigned      Task[]      @relation("assingnee")
+}
+
+model Workspace {
+  id           String   @id @unique @default(uuid())
+  name         String
+  description  String?
+  createdAt    DateTime @default(now()) @db.Date
+  authorId     String?
+  developerIds String[]
+  author       User?    @relation("author", fields: [authorId], references: [id])
+  developers   User[]   @relation(fields: [developerIds], references: [id])
+  notes        Note[]
+  tasks        Task[]
+  todos        Todo[]
+}
+
+model Todo {
+  id          String     @id @unique @default(uuid())
+  title       String
+  createdAt   DateTime   @default(now()) @db.Date
+  isDone      Boolean    @default(false)
+  workspaceId String?
+  authorId    String
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id])
+}
+
+model Note {
+  id          String     @id @unique @default(uuid())
+  title       String
+  content     String
+  author      User?      @relation(fields: [authorId], references: [id])
+  authorId    String?
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id])
+  workspaceId String?
+  createdAt   DateTime   @default(now()) @db.Date
+  updatedAt   DateTime   @updatedAt @db.Date
+}
+
+model Task {
+  id          String     @id @unique @default(uuid())
+  title       String
+  description String?
+  status      Status     @default(TODO)
+  createdAt   DateTime   @default(now()) @db.Date
+  updatedAt   DateTime   @updatedAt @db.Date
+  workspaceId String?
+  authorId    String
+  assigneeId  String
+  workspace   Workspace? @relation(fields: [workspaceId], references: [id])
+  assignee    User       @relation("assingnee", fields: [assigneeId], references: [id])
+}
+
+enum Status {
+  TODO
+  INPROGRESS
+  DONE
+  TESTING
+  BACKLOG
+}
