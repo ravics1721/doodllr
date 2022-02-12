@@ -6,15 +6,32 @@ export enum Status {
   BACKLOG = 'BACKLOG',
 }
 export class Task {
-  id = String;
-  title = String;
-  description? = String;
-  status = Status;
-  createdAt = Date;
-  updatedAt = Date;
-  workspaceId = String;
-  authorId = String;
-  assigneeId? = String;
+  id?: string;
+  title!: string;
+  description?: string;
+  status!: Status;
+  createdAt!: Date;
+  updatedAt!: Date;
+  workspaceId!: string;
+  authorId!: string;
+  assigneeId?: string;
+}
+export class TaskDto {
+  title!: string;
+  description?: string;
+  status!: Status;
+  createdAt!: Date;
+  updatedAt!: Date;
+  workspaceId!: string;
+  authorId!: string;
+  assigneeId?: string;
+}
+export class UpdateTaskDto {
+  title!: string;
+  description?: string;
+  status!: Status;
+  workspaceId?: string;
+  assigneeId?: string;
 }
 
 export interface TaskInterface {

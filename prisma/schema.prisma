@@ -28,7 +28,7 @@ model User {
   workspaces    Workspace[]
   createdAt     DateTime    @default(now()) @db.Date
   Workspace     Workspace[] @relation("author")
-  assigned      Task[]      @relation("assingnee")
+  assigned      String[]
 }
 
 model Workspace {
@@ -41,7 +41,7 @@ model Workspace {
   author       User?    @relation("author", fields: [authorId], references: [id])
   developers   User[]   @relation(fields: [developerIds], references: [id])
   notes        Note[]
-  tasks        Task[]
+  tasks        String[]
   todos        Todo[]
 }
 
@@ -68,17 +68,15 @@ model Note {
 }
 
 model Task {
-  id          String     @id @unique @default(uuid())
+  id          String   @id @unique @default(uuid())
   title       String
   description String?
-  status      Status     @default(TODO)
-  createdAt   DateTime   @default(now()) @db.Date
-  updatedAt   DateTime   @updatedAt @db.Date
-  workspaceId String?
-  authorId    String
-  assigneeId  String
-  workspace   Workspace? @relation(fields: [workspaceId], references: [id])
-  assignee    User       @relation("assingnee", fields: [assigneeId], references: [id])
+  status      Status   @default(TODO)
+  createdAt   DateTime @default(now()) @db.Date
+  updatedAt   DateTime @updatedAt @db.Date
+  workspaceId String
+  authorId    String?
+  assigneeId  String?
 }
 
 enum Status {
