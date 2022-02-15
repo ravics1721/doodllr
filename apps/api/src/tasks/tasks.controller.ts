@@ -24,7 +24,7 @@ export class TasksController {
       });
   }
 
-  @Get(':wid')
+  @Get('all/:wid')
   async findAll(@Param('wid') wid: string, @Res() res: Response) {
     return await this.tasksService
       .findAll(wid)
