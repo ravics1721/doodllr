@@ -11,7 +11,7 @@ export function Index() {
         <span> Hello {session?.user?.name || 'There!'} </span>
         Welcome Doodllr 👋
       </h1>
-      <div className="text-center my-5">
+      {/* <div className="text-center my-5">
         {!session && (
           <>
             <p className="text-3xl text-red-500 font-medium">Not Logged In</p>
@@ -28,7 +28,7 @@ export function Index() {
             </Button>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

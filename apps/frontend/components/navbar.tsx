@@ -1,18 +1,50 @@
 import React, { FC } from 'react';
-import { HStack, Text, Button } from '@chakra-ui/react';
+import { HStack, Text, Button, Box, Spacer } from '@chakra-ui/react';
 import Link from 'next/link';
+import Image from 'next/image';
+import Logo from '../assets/Logo.svg';
 
 const Navbar: FC = () => {
   return (
-    <header className="py-2 px-10 w-full">
+    <header className="py-2 px-10 w-full bg-slate-50">
       <HStack w="full" justifyContent="space-between">
-        <Text color="teal.600" fontSize={22} fontWeight="bold">
-          Doodllr
-        </Text>
+        <HStack>
+          <Image src={Logo} alt="logo" width="40px" height="40px" />
+          <Text color="teal.800" fontSize="3xl" fontWeight="bold">
+            Doodllr
+          </Text>
+          <Spacer width="10" />
+          <Link href="/" passHref={true}>
+            <Text
+              fontSize="xl"
+              fontWeight="medium"
+              marginLeft="10"
+              _hover={{
+                textDecoration: 'underline',
+              }}
+            >
+              Features
+            </Text>
+          </Link>
+          <Spacer width="10" />
+          <Link href="/" passHref={true}>
+            <Text
+              fontSize="xl"
+              fontWeight="medium"
+              _hover={{
+                textDecoration: 'underline',
+              }}
+            >
+              About
+            </Text>
+          </Link>
+        </HStack>
+
         <HStack as="nav" ml="auto" width="fit-content">
           <Link href="/login" passHref={true}>
             <Button
-              colorScheme="gray"
+              colorScheme="teal"
+              size="lg"
               _focus={{
                 outline: 'none',
               }}
@@ -20,7 +52,7 @@ const Navbar: FC = () => {
               Login
             </Button>
           </Link>
-          <Link href="/signup" passHref={true}>
+          {/* <Link href="/signup" passHref={true}>
             <Button
               colorScheme="teal"
               _focus={{
@@ -29,7 +61,7 @@ const Navbar: FC = () => {
             >
               Signup
             </Button>
-          </Link>
+          </Link> */}
         </HStack>
       </HStack>
     </header>
