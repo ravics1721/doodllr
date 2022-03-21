@@ -1,5 +1,5 @@
-import Navbar from './navbar';
-import Appbar from './appbar';
-import Footer from './footer';
-import Sidebar from './sidebar';
-export { Navbar, Appbar, Footer, Sidebar };
+export { default as Navbar } from './Landing/navbar';
+export { default as Appbar } from './appbar';
+export { default as Footer } from './Landing/footer';
+export { default as Sidebar } from './sidebar';
+export { default as Landing } from './Landing/landing';

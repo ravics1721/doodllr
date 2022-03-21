@@ -1,16 +1,14 @@
 import { Button } from '@chakra-ui/react';
-import { Navbar } from '../components';
+import { Landing, Navbar } from '../components';
 import { signIn, signOut, useSession, SessionContextValue } from 'next-auth/react';
 
 export function Index() {
   const { data: session, status } = useSession();
   return (
-    <div id="welcome">
-      <Navbar />
-      <h1 className="text-center text-5xl font-bold text-teal-700 mt-20">
-        <span> Hello {session?.user?.name || 'There!'} </span>
-        Welcome Doodllr 👋
-      </h1>
+    <div id="welcome" className="h-screen">
+      <Landing.Navbar />
+      {/* Main Section  */}
+      <Landing.MainSection />
       {/* <div className="text-center my-5">
         {!session && (
           <>

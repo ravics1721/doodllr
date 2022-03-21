@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { HStack, Text, Button, Box, Spacer } from '@chakra-ui/react';
+import { HStack, Text, Button, Spacer } from '@chakra-ui/react';
 import Link from 'next/link';
 import Image from 'next/image';
-import Logo from '../assets/Logo.svg';
+import Logo from '../../assets/Logo.svg';
 
 const Navbar: FC = () => {
   return (
@@ -52,16 +52,6 @@ const Navbar: FC = () => {
               Login
             </Button>
           </Link>
-          {/* <Link href="/signup" passHref={true}>
-            <Button
-              colorScheme="teal"
-              _focus={{
-                outline: 'none',
-              }}
-            >
-              Signup
-            </Button>
-          </Link> */}
         </HStack>
       </HStack>
     </header>
