@@ -11,38 +11,30 @@ datasource db {
 }
 
 model User {
-  id            String      @id @unique @default(uuid())
-  name          String      @db.VarChar(255)
-  email         String
-  verifiedEmail Boolean
-  picture       String
-  locale        String?
-  accessToken   String?
-  tokenType     String?
-  expiresIn     Int?
-  refreshToken  String?
-  idToken       String?
-  credentials   Json        @db.Json
-  todos         String[]
-  notes         Note[]
-  workspaces    Workspace[]
-  createdAt     DateTime    @default(now()) @db.Date
-  Workspace     Workspace[] @relation("author")
-  assigned      String[]
+  id           String       @id @unique @default(uuid())
+  name         String       @db.VarChar(255)
+  email        String
+  authProvider AuthProvider
+  picture      String
+  credentials  Json         @db.Json
+  todos        String[]
+  notes        Note[]
+  createdAt    DateTime     @default(now()) @db.Date
+  workspaces   Workspace[]  @relation("author")
+  assigned     String[]
 }
 
 model Workspace {
-  id           String   @id @unique @default(uuid())
-  name         String
-  description  String?
-  createdAt    DateTime @default(now()) @db.Date
-  authorId     String?
-  developerIds String[]
-  author       User?    @relation("author", fields: [authorId], references: [id])
-  developers   User[]   @relation(fields: [developerIds], references: [id])
-  notes        Note[]
-  tasks        String[]
-  todos        Todo[]
+  id          String   @id @unique @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now()) @db.Date
+  authorId    String?
+  members     String[]
+  author      User?    @relation("author", fields: [authorId], references: [id])
+  notes       Note[]
+  tasks       String[]
+  todos       Todo[]
 }
 
 model Todo {
@@ -50,6 +42,7 @@ model Todo {
   title       String
   createdAt   DateTime   @default(now()) @db.Date
   isDone      Boolean    @default(false)
+  isPublic    Boolean    @default(false)
   workspaceId String?
   authorId    String
   workspace   Workspace? @relation(fields: [workspaceId], references: [id])
@@ -59,6 +52,7 @@ model Note {
   id          String     @id @unique @default(uuid())
   title       String
   content     String
+  isPublic    Boolean    @default(false)
   author      User?      @relation(fields: [authorId], references: [id])
   authorId    String?
   workspace   Workspace? @relation(fields: [workspaceId], references: [id])
@@ -84,5 +78,12 @@ enum Status {
   INPROGRESS
   DONE
   TESTING
-  BACKLOG
+  DEPLOYED
+}
+
+enum AuthProvider {
+  GOOGLE
+  GITHUB
+  LINKEDIN
+  GITLAB
 }

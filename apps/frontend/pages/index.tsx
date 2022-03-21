@@ -1,24 +1,33 @@
 import { Button } from '@chakra-ui/react';
-import styles from './index.module.css';
+import { Navbar } from '../components';
+import { signIn, signOut, useSession, SessionContextValue } from 'next-auth/react';
 
 export function Index() {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./index.css file.
-   */
+  const { data: session, status } = useSession();
   return (
-    <div className={styles.page}>
-      <div className="wrapper">
-        <div className="container">
-          <div id="welcome">
-            <h1 className="text-green-400">
-              <span> Hello there, </span>
-              Welcome Doodllr 👋
-            </h1>
-            <Button colorScheme="cyan">Get Started</Button>
-          </div>
-        </div>
+    <div id="welcome">
+      <Navbar />
+      <h1 className="text-center text-5xl font-bold text-teal-700 mt-20">
+        <span> Hello {session?.user?.name || 'There!'} </span>
+        Welcome Doodllr 👋
+      </h1>
+      <div className="text-center my-5">
+        {!session && (
+          <>
+            <p className="text-3xl text-red-500 font-medium">Not Logged In</p>
+            <Button my="2" onClick={() => signIn()} colorScheme="green">
+              Sign In
+            </Button>
+          </>
+        )}
+        {session && (
+          <>
+            <p className="text-3xl text-green-500 font-medium">Hello {session?.user?.email}</p>
+            <Button my="2" onClick={() => signOut()} colorScheme="red">
+              Sign Out
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );

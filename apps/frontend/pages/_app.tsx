@@ -1,21 +1,18 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
 import { ChakraProvider } from '@chakra-ui/react';
 import './styles.css';
+import { SessionProvider } from 'next-auth/react';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        <title>Welcome to frontend!</title>
-      </Head>
-      <main className="app">
+      <SessionProvider session={pageProps.session}>
         <ChakraProvider>
           <Component {...pageProps} />
         </ChakraProvider>
-      </main>
+      </SessionProvider>
     </>
   );
 }
 
-export default CustomApp;
+export default App;
